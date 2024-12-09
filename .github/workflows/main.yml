@@ -1,0 +1,29 @@
+name: Tag with trunkver
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate trunkver
+        id: trunkver
+        uses: crftd-tech/trunkver@v1 # Use the appropriate version
+
+      - name: Create Tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/${process.env.TRUNKVER}`,
+              sha: context.sha
+            })
+        env:
+          TRUNKVER: ${{ steps.trunkver.outputs.trunkver }}
