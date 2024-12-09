@@ -13,7 +13,7 @@ jobs:
 
       - name: Generate trunkver
         id: trunkver
-        uses: crftd-tech/trunkver@v1 # Use the appropriate version
+        uses: crftd-tech/trunkver@main
 
       - name: Create Tag
         uses: actions/github-script@v6
